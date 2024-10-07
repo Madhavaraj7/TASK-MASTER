@@ -32,7 +32,7 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch(`${backendUrl}/api/auth/login`, {
+      const res = await fetch(`${backendUrl}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
