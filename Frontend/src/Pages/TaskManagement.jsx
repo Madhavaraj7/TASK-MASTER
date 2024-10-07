@@ -6,7 +6,6 @@ import todo_icon from "../assets/todo_icon.png";
 import io from "socket.io-client";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-const SocketUrl = import.meta.env.VITE_BACKEND_URL_SOCKET;
 
 const TaskManagement = () => {
   const [tasks, setTasks] = useState([]);
@@ -19,7 +18,7 @@ const TaskManagement = () => {
   const inputRef = useRef();
 
   useEffect(() => {
-    socket.current = io(SocketUrl); 
+    socket.current = io(backendUrl); 
 
     socket.current.on("taskAdded", (newTask) => {
       setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -46,7 +45,7 @@ const TaskManagement = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(`${backendUrl}/tasks`, {
+      const res = await fetch(`${backendUrl}/api/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,8 +72,8 @@ const TaskManagement = () => {
 
     const method = currentTaskId ? "PUT" : "POST";
     const url = currentTaskId
-      ? `${backendUrl}/tasks/${currentTaskId}`
-      : `${backendUrl}/tasks`;
+      ? `${backendUrl}/api/tasks/${currentTaskId}`
+      : `${backendUrl}/api/tasks`;
 
     try {
       const res = await fetch(url, {
@@ -112,7 +111,7 @@ const TaskManagement = () => {
   const deleteTask = async (id) => {
     const token = localStorage.getItem("token");
     try {
-      await fetch(`${backendUrl}/tasks/${id}`, {
+      await fetch(`${backendUrl}/api/tasks/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -130,7 +129,7 @@ const TaskManagement = () => {
     const token = localStorage.getItem("token");
     const task = tasks.find((task) => task._id === id);
     try {
-      const res = await fetch(`${backendUrl}/tasks/${id}`, {
+      const res = await fetch(`${backendUrl}/api/tasks/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

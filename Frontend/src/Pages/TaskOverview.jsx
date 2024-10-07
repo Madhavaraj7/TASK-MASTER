@@ -18,7 +18,7 @@ const TaskOverview = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(`${backendUrl}/tasks/statistics`, {
+      const res = await fetch(`${backendUrl}/api/tasks/statistics`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -38,7 +38,7 @@ const TaskOverview = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await fetch(`${backendUrl}/tasks`, {
+      const res = await fetch(`${backendUrl}/api/tasks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
